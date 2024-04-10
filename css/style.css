@@ -10000,6 +10000,12 @@ a:focus {
   background-size: cover;
 }
 
+.bg-gradient-mid-dark {
+  background: rgb(66,68,78);
+  background: linear-gradient(180deg, rgba(56,57,62,1) 0%, rgba(21,22,26,1) 50%, rgba(37,39,46,1) 100%);
+  background-size: cover
+}
+
 .bg-gray-100 {
   background-color: #f8f9fc !important;
 }
@@ -10914,8 +10920,8 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url(../img/logo.svg);
-  background-size: 75%;
+  background: url(../img/login.png);
+  
   background-position: center;
   background-repeat: no-repeat;
 }

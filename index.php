@@ -36,7 +36,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
+  <nav id="nav" class="navbar navbar-expand navbar-dark bg-dark topbar static-top shadow">
 
     <img src="img/logo.png" alt="logo" style="width: 8%;">
 
@@ -54,7 +54,7 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown p-1">
-        <button class="btn btn-secondary ">Login</button>
+        <a href="login.php" class="btn btn-secondary ">Login</a>
       </li>
 
     </ul>
@@ -197,35 +197,11 @@
     </div>
   </section>
 
-  <section class="bg-high-dark">
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="...">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </section>
-
-  <section class="bg-high-dark pt-5">
+  <section class="bg-gradient-dark pt-5">
     <div class="container">
       <div class="d-flex text-center justify-content-evenly pb-5">
         <div class="col-4">
-          <h1><span class="badge rounded-circle p-3 bg-danger"><i class="fa-solid fa-clock"></i></span></h1>
+          <h1><span class="badge rounded-circle p-3 bg-danger"><i class="fa-solid fa-globe"></i></span></h1>
             <h4><b>Conteúdo online</b></h4>
             Acesse o clube de qualquer lugar sempre que quiser.
         </div>
@@ -235,11 +211,16 @@
           Receba seu acesso imediatamente após a compra.
         </div>
         <div class="col-4">
-          <h1><span class="badge rounded-circle p-3 bg-danger"><i class="fa-solid fa-clock"></i></span></h1>
+          <h1><span class="badge rounded-circle p-3 bg-danger"><i class="fa-solid fa-check"></i></span></h1>
           <h4><b>Garantia total</b></h4>
           Você tem uma garantia de 7 dias de satisfação total.
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="bg-high-dark pt-5 pb-5">
+    <div class="container">
       <div class="p-6 border border-2 border-ligh rounded rounded-5">
         <h1 class="text-center pb-3"><b>Comunidade PraiseLAB</b></h1>
         <p class="text-center" style="font-size: 1.40rem; color: rgb(107, 114, 128);">Uma comunidade recheada de conteúdos, cifras, dicas, cursos, desafios, tudo isso com o suporte de dois professores, Guto Ail e Tiago Palma. Conteúdos para quem quer aprender a tocar, ampliar o repertório, conteúdos mais complexos, estudar arranjos, cifras das músicas e suporte para o Ministério da Música.</p>
@@ -258,33 +239,86 @@
     </div>
   </section>
 
-  <section class="bg-high-dark pb-5 pt-5">
-    <div class="row justify-content-center">
-      <span class="inline-flex w-16 px-1 py-1 bg-secondary rounded-pill" aria-hidden="true" style="width:100px;"></span>
-    </div>
-  </section>
-
-  <section class="bg-high-dark">
-    <div class="container">
+  <section class="bg-gradient-dark">
+    <div class="container pt-5">
       <div class="d-flex text-center justify-content-evenly pb-5">
         <div class="col-4">
-          <h1><i class="fa-solid fa-clock"></i></h1>
+          <h1><i class="fa-solid fa-shield-halved"></i></h1>
             <h4><b>C100% seguro</b></h4>
             Pague com segurança e mantenha sua privacidade protegida.
         </div>
         <div class="col-4">
-          <h1><i class="fa-solid fa-clock"></i></h1>
+          <h1><i class="fa-solid fa-cart-flatbed-suitcase"></i></h1>
           <h4><b>Onde estiver</b></h4>
           Acesse o conteúdo do clube através de qualquer dispositivo.
         </div>
         <div class="col-4">
-          <h1><i class="fa-solid fa-clock"></i></h1>
+          <h1><i class="fa-solid fa-envelope"></i></h1>
           <h4><b>Com ajuda</b></h4>
           Tire dúvidas e receba suporte através do email.
         </div>
       </div>
     </div>
   </section>
-  
+
+  <section class="bg-high-dark pb-5 pt-5">
+    <div class="row justify-content-center">
+      <span class="inline-flex w-16 px-1 py-1 bg-secondary rounded-pill" aria-hidden="true" style="width:100px;"></span>
+    </div>
+  </section>
+
+  <section class="bg-high-dark pb-5">
+    <div class="container">
+
+      <div class="h4 pb-2 mb-4 border-bottom">
+        <h2 class="text-left pb-3"><b>Perguntas Frequentes</b></h2>
+      </div>
+
+      <div class="h4 pb-2 mb-4 border-bottom">
+        <h4 class="text-left pb-3">Como funciona a garantia de satisfação?</h4>
+        <span><p style="font-size: 16px; color: rgb(107, 114, 128);;">Se no prazo de 7 dias após a compra você decidir que deseja seu dinheiro de volta, nós removeremos seu acesso e entraremos em contato para realizar a devolução.</p></span>
+      </div>
+
+      <div class="h4 pb-2 mb-4 border-bottom">
+        <h4 class="text-left pb-3">Alguma dúvida não respondida?</h4>
+        <span><p style="font-size: 16px; color: rgb(107, 114, 128);;">Ficaremos felizes em responder todas as suas dúvidas enviadas para o email: gutoailmkt@gmail.com</p></span>
+      </div>
+
+  </section>
+
+  <footer class="border-top bg-high-dark pt-5 pb-5">
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="p-3">
+          <a style="text-decoration: none;" href="#nav"><strong>Página Inicial</strong></a>
+        </div>
+        <div class="p-3">
+          <a style="text-decoration: none;" href="login.php"><strong>Login de Assinante</strong></a>
+        </div>
+        <div class="p-3">
+          <a style="text-decoration: none;" href="#"><strong>Termos de Uso</strong></a>
+        </div>
+        <div class="p-3">
+          <a style="text-decoration: none;" href="#"><strong>Privacidade</strong></a>
+        </div>
+      </div>
+
+      <div class="row justify-content-center pt-3">
+        <div class="p-2">
+          <a style="font-size: 30px;" target="_blank" href="https://www.instagram.com/praiselab/"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+        <div class="p-2">
+          <a style="font-size: 30px;" target="_blank" href="https://www.youtube.com/gutoail?sub_confirmation=1"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        Comunidade PraiseLAB © 2024 • Todos os direitos reservados
+      </div>
+
+    </div>
+
+  </footer>
 </body>
 </html>
