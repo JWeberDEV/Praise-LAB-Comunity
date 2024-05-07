@@ -1,10 +1,10 @@
 <?php
 require_once(__DIR__ . "/_session.php");
 
-if (empty($_SESSION['userAuth']["idUsuario"]) || empty($_SESSION['userAuth']["idPerfil"])) {
-  header("location: /landing_page.php");
-  exit;
-}
+// if (empty($_SESSION['userAuth']["idUsuario"]) || empty($_SESSION['userAuth']["idPerfil"])) {
+//   header("location: /landing_page.php");
+//   exit;
+// }
 
 function logout()
 {
