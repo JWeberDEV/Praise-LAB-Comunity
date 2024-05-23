@@ -3,29 +3,29 @@ let id = "";
 // Função Para efetuar o Login
 function login() {
     location.href = 'index.php';
-    // let user = $("#user").val();
-    // let password = $("#password").val();
+    let user = $("#user").val();
+    let password = $("#password").val();
 
-    // if (user.trim() == "" || password.trim() == "") {
-    //     default_notification({ type: "danger", message: "É necessário preencher os campos de login e senha para efetuar o Login!" });
-    //     return;
-    // }
+    if (user.trim() == "" || password.trim() == "") {
+        default_notification({ type: "danger", message: "É necessário preencher os campos de login e senha para efetuar o Login!" });
+        return;
+    }
 
-    // let data = {
-    //     action: 'login',
-    //     user,
-    //     password
-    // }
+    let data = {
+        action: 'login',
+        user,
+        password
+    }
 
-    // $.post("action.php", data)
-    //     .done(function (response) {
-    //         response = JSON.parse(response);
-    //         if (response.return == 1) {
-    //             location.href = '/';
-    //         } else if (response.return == 0) {
-    //             default_notification({ type: "danger", message: `<b>${response.message}</b>` });
-    //         }
-    //     });
+    $.post("action.php", data)
+        .done(function (response) {
+            response = JSON.parse(response);
+            if (response.return == 1) {
+                location.href = '/';
+            } else if (response.return == 0) {
+                default_notification({ type: "danger", message: `<b>${response.message}</b>` });
+            }
+        });
 }
 // função usada para finalizazar a seção do usuário
 function logout() {

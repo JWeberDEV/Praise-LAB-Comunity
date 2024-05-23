@@ -1,13 +1,13 @@
 <?php 
   // conexão com postgree
   try {
-    // $host = '127.0.0.1';
-    // $dbname = 'seal_db';
-    // $username = 'postgres';
-    // $password = 'admin';
+    $host = '127.0.0.1';
+    $dbname = 'data_praise_lab';
+    $username = 'root';
+    $password = '';
 
     // Ccria uma instancia PDO
-   $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password, 
+   $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password, 
       [
         // configura os atributos para o PDO
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -16,7 +16,7 @@
     );
 
   }catch (PDOException $e) {
-    echo "Error: " . $e->getMessage() . "conexão com postgres";
+    echo "Error: " . $e->getMessage() . "conexão com mysql";
   }
 
 ?>
