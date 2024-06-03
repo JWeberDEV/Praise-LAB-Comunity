@@ -2,7 +2,6 @@ let id = "";
 
 // Função Para efetuar o Login
 function login() {
-    location.href = 'index.php';
     let user = $("#user").val();
     let password = $("#password").val();
 
@@ -19,6 +18,7 @@ function login() {
 
     $.post("action.php", data)
         .done(function (response) {
+            console.log(response);
             response = JSON.parse(response);
             if (response.return == 1) {
                 location.href = '/';

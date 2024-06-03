@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/_session.php");
 
-if (empty($_SESSION['userAuth']["idUsuario"]) || empty($_SESSION['userAuth']["idPerfil"])) {
+if (empty($_SESSION['userAuth']["id"]) || empty($_SESSION['userAuth']["idProfile"])) {
   header("location: /landing_page.php");
   exit;
 }

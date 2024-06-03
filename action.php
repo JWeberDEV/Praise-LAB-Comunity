@@ -26,18 +26,18 @@ switch ($data->action) {
     ];
 
     // busca pelo usuáruio no banco
-    $stmt = $pdo->prepare("SELECT idusuario,idperfil,senha,nomeusuario,usuario,estado,email FROM sealusuarios WHERE usuario = :user AND senha = :password");
+    $stmt = $pdo->prepare("SELECT id,idProfile,name,user,status,mail FROM user WHERE user = :user AND password = :password");
     $execute = $stmt->execute($data);
     $result = $stmt->fetchAll();
     $numRows = count($result);
 
     if ($numRows > 0) {
       $user = $result[0];
-      if ($user->estado != 0) {
+      if ($user->status != 0) {
         // Define as variáveis de seção e inicia a seção
-        $_SESSION['userAuth']['idUsuario']  = $user->idusuario;
-        $_SESSION['userAuth']['idPerfil']  = $user->idperfil;
-        $_SESSION['userAuth']['nomeUsuario'] = $user->nomeusuario;
+        $_SESSION['userAuth']['id']  = $user->id;
+        $_SESSION['userAuth']['idProfile']  = $user->idProfile;
+        $_SESSION['userAuth']['name'] = $user->name;
 
         $response->message = "Ok";
         $response->return = 1;
