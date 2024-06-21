@@ -8,15 +8,12 @@ $routine = "";
 <html lang="pt-br">
 
 <head>
-    <?php require_once(__DIR__ . "/includes/head.php"); ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
+    <?php require_once(__DIR__ . "/includes/head.php"); ?>
 </head>
 
 <body id="page-top">
@@ -24,38 +21,26 @@ $routine = "";
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php require_once(__DIR__ . "/includes/sidebar.php"); ?>
+        <?php require_once(__DIR__ . "/includes/sidebar.php");?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="bg-content">
 
                 <!-- Topbar -->
                 <?php require_once(__DIR__ . "/includes/navbar.php"); ?>
                 <!-- End of Topbar -->
 
                 <?php
-                    $module = isset($_GET['module']) ? $_GET['module'] : 'unknow';
-                    $subMenu = isset($_GET['routine']) ? $_GET['routine'] : 'unknow';
-                    switch ($module) {
-                        case "admin":
-                            require_once(__DIR__ . "/pages/admin/route.php");
-                            break;
-
-                        case 'dashboard':
-                            require_once(__DIR__ . "/pages/dashboard/route.php");
-                            break;
-                            
-                        case 'operacional':
-                            require_once(__DIR__ . "/pages/operacional/route.php");
-                            break;
-
-                        default:
-                            $module = "home";
-                            require_once(__DIR__ . "/pages/home/route.php");
+                    require_once(__DIR__ . "/php/routes.php");
+                    $query_route =isset($_GET['route']) ? $_GET['route'] : 'unknown';
+                    if (isset($routes[$query_route]) != null) {
+                        require_once(__DIR__ ."/pages/$routes[$query_route]");
+                    } else {
+                        require_once(__DIR__ ."/pages/default_content.php");
                     }
                 ?>
             <input type="hidden" name="module" value="<?php echo $module;?>">
@@ -63,10 +48,10 @@ $routine = "";
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer" style="background-color:#eaecf2;">
+            <footer class="sticky-footer" style="background-color:#202428;">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Seal <script> document.write(new Date().getFullYear()) </script></span>
+                        <span>Copyright &copy; Praise Lab <script> document.write(new Date().getFullYear()) </script></span>
                     </div>
                 </div>
             </footer>
@@ -86,8 +71,6 @@ $routine = "";
 </body>
 
 </html>
-
-<?php require_once(__DIR__ . "/includes/js_includes.php"); ?>
 
 <script>
     $(document).ready(function() {

@@ -39,8 +39,13 @@ switch ($data->action) {
         $_SESSION['userAuth']['idProfile']  = $user->idProfile;
         $_SESSION['userAuth']['name'] = $user->name;
 
+        // if ($user->namidProfile == 1) {
+        //   $route = '';
+        // }
+
         $response->message = "Ok";
         $response->return = 1;
+
       } else {
         $response->return = 0;
         $response->message = "Usuário inativo contate um administrador!";

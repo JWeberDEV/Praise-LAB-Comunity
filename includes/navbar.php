@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand topbar mb-4 static-top shadow" style="background-color: #292F35 ;">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -61,24 +61,21 @@
             </div>
         </li>
 
-        <div class="topbar-divider d-none d-sm-block"></div>
-
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userAuth']['nomeUsuario']?></span>
-                <img class="img-profile rounded-circle"
-                    src="../img/logo_s.png">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['userAuth']['name']?></span>
+                <img class="img-profile rounded-circle" src="../img/logo.png">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown" role="button">
-                <a class="dropdown-item" onclick="header_url([{parameter: 'subMenu', value: 'edit'},{parameter: 'id', value: `<?php echo $_SESSION['userAuth']['idUsuario']?>`}]);">
+                <a class="dropdown-item" onclick="header_url([{parameter: 'subMenu', value: 'edit'},{parameter: 'id', value: `<?php echo $_SESSION['userAuth']['id']?>`}]);">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Perfil
                 </a>
-                <a class="dropdown-item" href="?module=admin&subMenu=change&id=<?php echo $_SESSION['userAuth']['idUsuario']?>">
+                <a class="dropdown-item" href="?module=admin&subMenu=change&id=<?php echo $_SESSION['userAuth']['id']?>">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Alterar Senha
                 </a>
@@ -96,23 +93,3 @@
     </ul>
 
 </nav>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="index.html">Sair</a>
-            </div>
-        </div>
-    </div>
-</div>
