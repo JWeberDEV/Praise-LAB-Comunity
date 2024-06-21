@@ -1,27 +1,39 @@
 <!-- Begin Page Content -->
 <title>Usuários</title>
 <div class="container-fluid">
-  <div class="col-md-12">
-    <div class="light-card shadow mb4">
-      <div class="card-header" style="color: black;">
-        <strong>Cadastro de Usuários</strong>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="control-group">
-              <label for="select-console">Console:</label>
-              <select id="select-console" class="demo-consoles teste" placeholder="Select console..."></select>
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="light-card shadow mb4">
+        <div class="card-header" style="color: black;">
+          <strong>Cadastro de Usuários</strong>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <label class="label">Nome</label>
+              <input type="text" class="form-control" name="name">
+            </div>
+            <div class="col-md-3">
+              <label class="label">Email</label>
+              <input type="text" class="form-control" name="mail">
+            </div>
+            <div class="col-md-3">
+              <label class="label">Usuário</label>
+              <input type="text" class="form-control" name="user">
+            </div>
+            <div class="col-md-3">
+              <div class="control-group">
+                <label for="profile" class="label">Perfil</label>
+                <select id="profile" class="demo-consoles teste" placeholder="Select console..."></select>
+              </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <label class="label-title">Usuário</label>
-            <input type="text" class="form-control" name="user">
+        </div>
+        <div class="card-footer">
+          <div class="row justify-content-end">
+            <a href="#" class="btn btn-primary">Salvar</a>
           </div>
         </div>
-      </div>
-      <div class="card-footer text-body-secondary">
-        <a href="#" class="btn btn-primary">Salvar</a>
       </div>
     </div>
   </div>
@@ -30,7 +42,7 @@
 <script>
 
   $(function(){
-    $('#select-console').selectize({
+    $('#profile').selectize({
       options: [
         { manufacturer: 'nintendo', value: "nes", name: "Nintendo Entertainment System" },
         { manufacturer: 'nintendo', value: "snes", name: "Super Nintendo Entertainment System" },
