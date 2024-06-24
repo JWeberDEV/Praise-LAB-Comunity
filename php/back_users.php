@@ -1,8 +1,8 @@
 <?php
 // Inclusão da conexão com o Banco e com as funções gerais
-include_once(__DIR__ . "/../php/_protect.php");
-include_once(__DIR__ . "/../php/_db.php");
-include_once(__DIR__ . "/../php/functions.php");
+include_once(__DIR__ . "../_protect.php");
+include_once(__DIR__ . "../_db.php");
+include_once(__DIR__ . "../functions.php");
 
 // Variáveis
 $data = (Object) $_REQUEST;
@@ -16,16 +16,17 @@ switch ($data->action) {
     break;
 
   case 'save_user':
-    if ($data->idUser != '') {
+    if ($data->id != '') {
 
       // Decalara os Valores para usar o prepare
       $arrayData = [
-        'idUser' => "$data->idUser",
-        'idPerfil' => "$data->perfil",
-        'statusUser' => "$data->statusUser",
+        'id' => "$data->id",
+        'name' => "$data->name",
+        'phone' => "$data->phone",
         'email' => "$data->email",
-        'fullName' => "$data->fullName",
         'user' => $data->user,
+        'profile' => "$data->profile",
+        'status' => "$data->status",
       ];
 
       // Preapara a query de fato
@@ -52,31 +53,33 @@ switch ($data->action) {
         $response->message = "Erro ao editar o registro!";
       }
     } else {
+      // Cria o id do usuário
+      $id = random_code_generator(32);
       // Cria uma senha temporária
       $resh = random_code_generator(5);
 
-      // Decalara os Valores para usar o prepare
       $arrayData = [
-        'idPerfil' => "$data->perfil",
-        'statusUser' => "$data->statusUser",
-        'email' => "$data->email",
-        'fullName' => "$data->fullName",
+        'id' => "$id",
+        'name' => "$data->name",
+        'phone' => "$data->phone",
+        'mail' => "$data->mail",
         'user' => $data->user,
         'password' => md5("$resh"),
-        'idUsuarioSessao' => $_SESSION['userAuth']['idUsuario']
+        'profile' => "$data->profile",
+        'status' => "$data->status",
+        'sessionUser' => $_SESSION['userAuth']['id']
       ];
-      // Preapara a query de fato
-      $stmt = $pdo->prepare("INSERT INTO sealusuarios (idperfil,estado,email,nomeusuario,usuario,senha,criadopor)
-      VALUES (:idPerfil, :statusUser, :email, :fullName, :user, :password,:idUsuarioSessao)");
 
-      // executa a query
+      $stmt = $pdo->prepare("INSERT INTO user (id,idProfile,name,mail,phone,user,password,status,createdBy)
+      VALUES (:id, :profile, :name, :mail, :phone, :user, :password, :status, :sessionUser)");
+
       $execute = $stmt->execute($arrayData);
 
       if ($execute) {
         $response->return = 1;
-        $response->message = "Registro criado com sucesso! Um e-mail será enviado para: <b> $data->email </b>";
+        $response->message = "Registro criado com sucesso! Um e-mail será enviado para: <b> $data->mail </b>";
 
-        send_password([$resh, $data->email, $data->user, $data->fullName]);
+        send_password([$resh, $data->mail, $data->user, $data->name]);
       } else {
         $response->return = 0;
         $response->message = "Erro ao criar o registro!";
@@ -87,11 +90,16 @@ switch ($data->action) {
     break;
 
   case 'list_user':
-    $stmt = $pdo->prepare("SELECT u.idusuario,p.nomeperfil,u.nomeusuario,u.usuario,u.email,u.estado 
-      FROM sealusuarios u 
-      JOIN sealperfil p ON p.idperfil = u.idperfil
-      WHERE u.deletadoem IS NULL
-      ORDER BY u.nomeusuario
+    $stmt = $pdo->prepare("SELECT u.id,
+        p.profileName,
+        u.name,
+        u.user,
+        u.mail,
+        u.status
+      FROM USER u
+      JOIN userprofile p ON p.id = u.idProfile
+      WHERE deletedDate IS NULL
+      ORDER BY u.name
     ");
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -99,10 +107,10 @@ switch ($data->action) {
     foreach ($results as $key => $value) {
       if ($value) {
         $list .= "<tr>
-            <td>" . $value['nomeusuario'] . "</td>
-            <td>" . $value['email'] . "</td>
-            <td>" . $value['nomeperfil'] . "</td>
-            <td>" . ($value['estado'] == 1 ? 'Ativo' : 'Inativo') . "</td>
+            <td>" . $value['name'] . "</td>
+            <td>" . $value['mail'] . "</td>
+            <td>" . $value['profileName'] . "</td>
+            <td>" . ($value['status'] == 1 ? 'Ativo' : 'Inativo') . "</td>
             <td class='actions text-right'>
               <button type='button' class='btn btn-warning btn-sm btn-just-ico' data-toggle='tooltip' title='Editar' onclick=\"header_url([{parameter: 'subMenu', value: 'edit'},{parameter: 'id', value: '".$value['idusuario']."'}])\">
                 <i class='fas fa-pencil-alt'></i>
@@ -180,125 +188,27 @@ switch ($data->action) {
       echo json_encode($response);
       break;
     
-  case 'load_processes':
-    // Decalara os Valores para usar o prepare
-    $idUser = isset($data->idUser) ?: "";
-    if ($idUser != "") {
-      $arrayData = [
-        'idUser' => $idUser,
-      ];
-    }
-    // Prepara a query
-    $query = "SELECT idpessoa,
-      cdpessoa,
-      nmpessoa
-      FROM pessoa
-    ";
+  case 'load_profile':
 
-    if ($idUser != "") {
-      $query .= "WHERE idpessoa NOT IN (SELECT idpessoa FROM sealusuariospessoa WHERE idusuario = :idUser)";
-    }
-
-    $stmt = $pdo->prepare($query);
-
-    if ($idUser != "") {$stmt->execute($arrayData);}else{$stmt->execute();}
-
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $arrayResult = [];
-    foreach ($results as $key => $value) {
-      $arrayResult[] = [
-        'idpessoa' => $value['idpessoa'],
-        'cdpessoa' => $value['cdpessoa'],
-        'nmpessoa' => $value['nmpessoa'],
-      ];
-    }
-
-    echo(json_encode($arrayResult));
-    break;
-
-  case 'save_process':
-    // Decalara os Valores para usar o prepare
-    $arrayData = [
-      'idUser' => "$data->idUser",
-      'idProcess' => $data->idProcess
-    ];
-
-    // Prepara a query
-    $stmt = $pdo->prepare(
-      "INSERT INTO sealusuariospessoa(idusuario, idpessoa, criadoem) VALUES (:idUser, :idProcess, NOW())"
-    );
-  
-    // executa a query
-    $execute = $stmt->execute($arrayData);
-
-    if ($execute) {
-      $response->return = 1;
-      $response->message = "Processo vinculado com sucesso!";
-    } else {
-      $response->return = 0;
-      $response->message = "Erro ao vincular o processo!";
-    }
-    
-    echo json_encode($response);
-    break;
-
-  case 'list_process':
-    $arrayData = [
-      'idUser' => $data->idUser
-    ];
-
-    $stmt = $pdo->prepare("SELECT u.idpessoa,u.idusuario,p.cdpessoa,p.nmpessoa FROM sealusuariospessoa u
-      JOIN pessoa p ON u.idpessoa = p.idpessoa
-      WHERE u.idusuario = :idUser
-      ORDER BY u.criadoem
+    $stmt = $pdo->prepare("SELECT 
+      id,
+      profileName 
+      FROM userprofile
     ");
-    $stmt->execute($arrayData);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $list = '';
+
+    $stmt->execute() or die("Failed to execute");
+
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC) or die("Failed to fetch");
+
+    $response = [];
     foreach ($results as $key => $value) {
-      if ($value) {
-        $list .= "<tr>
-            <td>" . $value['cdpessoa'] . "</td>
-            <td>" . $value['nmpessoa'] . "</td>
-            <td class='actions text-right'>
-              <button type='button' class='btn btn-primary btn-sm btn-just-ico' data-toggle='tooltip' data-placement='top' title='Excluir' onclick='remove_process({idPessoa:".$value['idpessoa']." , idUsuario:".$value['idusuario']."})'>
-                <i class='fas fa-minus'></i>
-              </button>
-            </td>
-          </tr>
-        ";
-      }else {
-        $list =
-          "<tr>
-            <td style='padding:10px;' colspan='8'>
-              <a href='#' style='color:#ED6663;font-style:italic;'><i class='fas fa-info-circle'></i> Nenhum registro encontrado!</a>
-            </td>
-          </tr>
-        ";
-      }
+      $response[] = [
+        'id' => $value['id'],
+        'profileName' => $value['profileName'],
+      ];
     }
 
-    echo $list;
-    break;
-
-  case 'remove_process':
-    $arrayData = [
-      'idUser' => $data->idUser,
-      'idPeople' => $data->idPeople
-    ];
-
-    $stmt = $pdo->prepare("DELETE FROM sealusuariospessoa WHERE idusuario = :idUser AND idpessoa = :idPeople");
-    $execute = $stmt->execute($arrayData);
-
-    if ($execute) {
-      $response->return = 1;
-      $response->message = "Processo removido com sucesso!";
-    } else {
-      $response->return = 0;
-      $response->message = "Erro ao remover o processo!";
-    }
-
-    echo json_encode($response);
+    echo(json_encode($response));
     break;
 }
 

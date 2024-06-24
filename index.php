@@ -71,9 +71,3 @@ $routine = "";
 </body>
 
 </html>
-
-<script>
-    $(document).ready(function() {
-        $('.blocked-btn').hide();
-    });
-</script>

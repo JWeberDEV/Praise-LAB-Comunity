@@ -15,7 +15,7 @@
         </a>
         <div id='1' class='collapse' aria-labelledby='headingTwo' data-parent='#accordionSidebar'>
             <div class='bg-light py-2 collapse-inner rounded'>
-                <a class='collapse-item' href='?route=route'><i class="fa-solid fa-users-line"></i> Cadastro de Usuario</a>
+                <a class='collapse-item' href='?route=route'><i class="fa-solid fa-users-line"></i> Usuários</a>
             </div>
         </div>
     </li>
@@ -24,7 +24,7 @@
 
     <!-- Botão que Diminui o sidebar -->
     <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline pt-5">
+    <div class="text-center d-none d-md-inline ">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 </ul>
