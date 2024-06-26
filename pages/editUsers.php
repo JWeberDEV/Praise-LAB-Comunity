@@ -5,10 +5,10 @@
     <div class="col-md-10">
       <div class="card border border-dark shadow mb4">
         <input type="hidden" name="id">
-        <div class="card-header" style="color: black; background-color: #454c53;">
+        <div class="card-header" style="color: black;">
           <strong>Cadastro de Usuários</strong>
         </div>
-        <div class="card-body" style="background-color: #656c74;">
+        <div class="card-body">
           <div class="row">
             <div class="col-md-3">
               <label class="label">Nome</label>
@@ -44,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class="card-footer" style="background-color: #454c53;">
+        <div class="card-footer">
           <div class="row justify-content-end">
             <a href="#" class="btn btn-primary" onclick="SaveUser()">Salvar</a>
           </div>
@@ -57,6 +57,10 @@
 <script>
   $(document).ready(function() {
     $('#phone').mask('(00) 00000-0000');
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    editUser(id);
   });
 
   $(function(){
@@ -120,30 +124,25 @@
   }
 
   const editUser = (args) =>{
-    $("select[name=profile]").removeAttr( "title" );
-    $("select[name=statusUser]").removeAttr( "title" );
-
-    reset_form('.form-user');
     let data = {
       action: "list_user_id",
       idUser: args
     }
 
     let response = $.post("../php/back_users.php", data)
-      .done(function (response) {
-        response = JSON.parse(response);
-        $('#modal-new-user').modal('show');
-        $("input[name=idUser]").val(response.idusuario);
-        $("input[name=fullName]").val(response.nomeusuario);
-        $("input[name=mail]").val(response.email);
-        $("input[name=user]").val(response.usuario);
-        $("select[name=profile]").val(response.idperfil+"").selectpicker('destroy').selectpicker('render');
-        $("select[name=statusUser]").val(response.estado+"").selectpicker('destroy').selectpicker('render');
-      }).fail(() => {
-        default_notification({ type: "danger", message: error });
-      });
-      list_process();
+    .done(function (response) {
+      response = JSON.parse(response);
+      console.log(response);
+      $("input[name=id]").val(response.id);
+      $("input[name=name]").val(response.name);
+      $("input[name=phone]").val(response.phone);
+      $("input[name=mail]").val(response.mail);
+      $("input[name=user]").val(response.user);
+      $('#profile')[0].addItem(response.profile);
+      // $("select[name=profile]").val();
+    }).fail(() => {
+      default_notification({ type: "danger", message: error });
+    });
   }
-
-
+  
 </script>

@@ -37,7 +37,7 @@ switch ($data->action) {
           nomeusuario = :fullName,
           email = :email,
           usuario = :user,
-          alteradopor = {$_SESSION['userAuth']['idUsuario']},
+          alteradopor = {$_SESSION['userAuth']['id']},
           alteradoem = NOW()
         WHERE idusuario = :idUser"
       );
@@ -105,6 +105,7 @@ switch ($data->action) {
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $list = '';
     foreach ($results as $key => $value) {
+      print_r($value);
       if ($value) {
         $list .= "<tr>
             <td>" . $value['name'] . "</td>
@@ -112,10 +113,10 @@ switch ($data->action) {
             <td>" . $value['profileName'] . "</td>
             <td>" . ($value['status'] == 1 ? 'Ativo' : 'Inativo') . "</td>
             <td class='actions text-right'>
-              <button type='button' class='btn btn-warning btn-sm btn-just-ico' data-toggle='tooltip' title='Editar' onclick=\"header_url([{parameter: 'subMenu', value: 'edit'},{parameter: 'id', value: '".$value['idusuario']."'}])\">
+              <a type='button' class='btn btn-warning btn-sm btn-just-ico' data-toggle='tooltip' title='Editar' href=\"?route=route2&id='".$value['id']."'\">
                 <i class='fas fa-pencil-alt'></i>
-              </button>
-              <button type='button' class='btn btn-danger btn-sm btn-just-ico' data-toggle='tooltip' data-placement='top' title='Excluir' onclick='delete_user(".$value['idusuario'].")'>
+              </a>
+              <button type='button' class='btn btn-danger btn-sm btn-just-ico' data-toggle='tooltip' data-placement='top' title='Excluir' onclick=\"deleteUser('".$value['id']."')\">
                 <i class='fas fa-trash'></i>
               </button>
             </td>
@@ -137,11 +138,13 @@ switch ($data->action) {
   
   case 'list_user_id':
     $arrayData = [
-      'idUser' => $data->idUser
+      'idUser' => "$data->idUser"
     ];
 
-    $stmt = $pdo->prepare("SELECT * FROM sealusuarios WHERE idusuario = :idUser");
-    $stmt->execute($arrayData);
+    $id = "{$arrayData['idUser']}";
+
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE id = $id");
+    $stmt->execute();
     $results = $stmt->fetch();
 
     print_r(json_encode($results));
@@ -150,10 +153,10 @@ switch ($data->action) {
   case 'delete_server':
 
     $arrayData = [
-      'idUser' => $data->idUser
+      'idUser' => "$data->idUser"
     ];
 
-    $stmt = $pdo->prepare("UPDATE sealusuarios SET deletadopor = {$_SESSION['userAuth']['idUsuario']}, deletadoem = NOW(), estado = 0 WHERE idusuario = :idUser");
+    $stmt = $pdo->prepare("UPDATE user SET deletedBy = '{$_SESSION['userAuth']['id']}', deletedDate = NOW(), status = 0 WHERE id = :idUser");
     $execute = $stmt->execute($arrayData);
 
     if ($execute) {

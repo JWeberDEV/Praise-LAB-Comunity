@@ -21,7 +21,11 @@ function login() {
     console.log(response);
     response = JSON.parse(response);
     if (response.return == 1) {
-      location.href = '/';
+      if (response.keyProfile != 'KEY_STUDENT') {
+        location.href = '/';
+      }else{
+        location.href = '/pageStudents/';
+      }
     } else if (response.return == 0) {
       default_notification({ type: "danger", message: `<b>${response.message}</b>` });
     }
@@ -125,7 +129,7 @@ function reset_form(form, ignoreArray, params = {}) {
     }
   });
 
-} 
+}
 
 // Função criada para redirecionamento de rotas quando necessário
 function header_url(args) {
@@ -133,16 +137,18 @@ function header_url(args) {
     args = [args]; //Transforma o parâmetro da chamada da função em um array
   }
 
-  let module = $("input[name=module]").val();
   let parameters = "";
 
   // Percorre os argumentos e cria a nova URL com parâmetros
-  args.forEach(element => (parameters += '&' +element.parameter + "=" + element.value));
+  args.forEach(element => (parameters += element.parameter + "=" + element.value));
+  console.log(args);
 
-  route = "/?module=" + module + parameters;
+  url = "/?" + parameters;
+  console.log(url);
+  return;
 
   // Redireciona para a nova URL
-  window.location.href = route;
+  window.location.href = url;
 }
 
 async function load_profiles(args){

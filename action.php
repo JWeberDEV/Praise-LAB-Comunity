@@ -26,7 +26,11 @@ switch ($data->action) {
     ];
 
     // busca pelo usuáruio no banco
-    $stmt = $pdo->prepare("SELECT id,idProfile,name,user,status,mail FROM user WHERE user = :user AND password = :password");
+    $stmt = $pdo->prepare("SELECT u.id,u.idProfile,u.name,u.user,u.status,u.mail,p.key 
+      FROM user u 
+      JOIN userprofile p ON p.id = u.idProfile 
+      WHERE user = :user AND password = :password
+    ");
     $execute = $stmt->execute($data);
     $result = $stmt->fetchAll();
     $numRows = count($result);
@@ -38,6 +42,7 @@ switch ($data->action) {
         $_SESSION['userAuth']['id']  = $user->id;
         $_SESSION['userAuth']['idProfile']  = $user->idProfile;
         $_SESSION['userAuth']['name'] = $user->name;
+        $_SESSION['userAuth']['keyProfile'] = $user->key;
 
         // if ($user->namidProfile == 1) {
         //   $route = '';
@@ -45,10 +50,12 @@ switch ($data->action) {
 
         $response->message = "Ok";
         $response->return = 1;
+        $response->keyProfile = $user->key;
 
       } else {
         $response->return = 0;
         $response->message = "Usuário inativo contate um administrador!";
+        $response->keyProfile = $user->key;
       }
     } else {
       $response->return = 0;

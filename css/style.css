@@ -1479,7 +1479,7 @@ pre code {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #858796;
+  color: #000;
 }
 
 .table th,
@@ -4487,7 +4487,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #dde0eb;
+  background-color: #fff;
   background-clip: border-box;
   border: 1px solid #c6cad600;
   border-radius: 0.35rem;

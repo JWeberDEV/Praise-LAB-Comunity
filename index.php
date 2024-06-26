@@ -21,7 +21,7 @@ $routine = "";
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php require_once(__DIR__ . "/includes/sidebar.php");?>
+        <?php require_once(__DIR__ . "/includes/sidebar.php"); ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

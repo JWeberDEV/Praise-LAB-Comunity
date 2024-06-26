@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="libs/fontawesome/css/all.css">
     <style rel="stylesheet" type="text/css">
         body, html{
+            color: #fff!important;
             height: 100%!important;
         }
 
@@ -38,7 +39,7 @@
                             <div class="col-lg-6 bg-dark">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 mb-4">Bem Vindo</h1>
+                                        <h1 class="h4 mb-4" style="color:#fff;">Bem Vindo</h1>
                                     </div>
                                     <form class="user">
                                         <div class="form-group">

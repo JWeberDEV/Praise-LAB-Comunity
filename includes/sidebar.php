@@ -16,6 +16,7 @@
         <div id='1' class='collapse' aria-labelledby='headingTwo' data-parent='#accordionSidebar'>
             <div class='bg-light py-2 collapse-inner rounded'>
                 <a class='collapse-item' href='?route=route'><i class="fa-solid fa-users-line"></i> Usuários</a>
+                <a class='collapse-item' href='?route=route3'><i class="fa-solid fa-person-chalkboard"></i> Cursos/Aulas</a>
             </div>
         </div>
     </li>

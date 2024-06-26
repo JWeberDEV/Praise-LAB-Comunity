@@ -40,3 +40,6 @@ require_once(__DIR__ . "/../php/_protect.php");
 
 <!-- Selectize -->
 <script src="../libs/selectize/selectize.js"></script>
+
+<!-- highcharts  -->
+<script src="../libs/highcharts/code/highcharts.js"></script>
