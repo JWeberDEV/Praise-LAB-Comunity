@@ -24,7 +24,7 @@ function login() {
       if (response.keyProfile != 'KEY_STUDENT') {
         location.href = '/';
       }else{
-        location.href = '/pageStudents/';
+        location.href = '/pages/studentHome.php';
       }
     } else if (response.return == 0) {
       default_notification({ type: "danger", message: `<b>${response.message}</b>` });
