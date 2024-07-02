@@ -55,31 +55,32 @@
 </div>
 
 <script>
+  const fetchProfiles = async () => {
+    const response = await $.post("../php/back_users.php", {action:'load_profile'})
+    return JSON.parse(response);
+  }
+
+  let profile;
+
   $(document).ready(function() {
     $('#phone').mask('(00) 00000-0000');
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
-    editUser(id);
-  });
-
-  $(function(){
-    $.post("../php/back_users.php", {action:'load_profile'})
-    .done(function (response) {
-      options = JSON.parse(response);
-      $('#profile').selectize({
-        options: options,
+    fetchProfiles().then(response => {
+      let profileSelectize = $('#profile').selectize({
+        options: response,
         valueField: 'id',
         labelField: 'profileName',
         searchField: ['profileName'],
         create: false
-      });
-    }).fail(() => {
-      default_notification({ type: "danger", message: 'Ocorreu um problema ao carregar os perfis, entre em contato com o administrador!' });
-    });
+      })
+      profile = profileSelectize[0].selectize;
+      editUser(id);
+    })
   });
 
-  $('#status').selectize({
+  let status = $('#status').selectize({
     options: [
       {value: 1, title: 'Ativo'},
       {value: 0, title: 'Inativo'}
@@ -89,6 +90,9 @@
     searchField: ['title'],
     create: false
   });
+
+  status = status[0].selectize;
+  console.log('status', status)
 
   const SaveUser = () => {
     let data = {
@@ -132,14 +136,15 @@
     let response = $.post("../php/back_users.php", data)
     .done(function (response) {
       response = JSON.parse(response);
-      console.log(response);
+      console.log('Profile:', profile);
+      console.log('response:', response);
       $("input[name=id]").val(response.id);
       $("input[name=name]").val(response.name);
       $("input[name=phone]").val(response.phone);
       $("input[name=mail]").val(response.mail);
       $("input[name=user]").val(response.user);
-      $('#profile')[0].addItem(response.profile);
-      // $("select[name=profile]").val();
+      profile.setValue([response.idProfile]);
+      status.setValue([response.status]);
     }).fail(() => {
       default_notification({ type: "danger", message: error });
     });
