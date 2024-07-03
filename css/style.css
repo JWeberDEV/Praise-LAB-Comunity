@@ -4499,7 +4499,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #d3d3d6;
+  background-color: #bababd;
   background-clip: border-box;
   border: 1px solid #c6cad600;
   border-radius: 0.35rem;
@@ -11420,4 +11420,53 @@ body.sidebar-toggled footer.sticky-footer {
 }
 .icon-box:hover h4 a {
   color: #3498db;
+}
+
+.upload-container {
+  width: 300px;
+}
+
+.drag-area {
+  width: 47rem;
+  border: 2px dashed #999;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #000;
+}
+
+.drag-area.active{
+  border: 2px solid #999;
+}
+
+.drag-area .icon {
+  font-size: 60px;
+  color: #333;
+}
+
+.drag-area header {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.drag-area span,
+.drag-area button {
+  display: block;
+  margin: 10px 0;
+}
+
+.drag-area button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.drag-area button:hover {
+  background-color: #555;
 }

@@ -11,7 +11,12 @@ function pass_encriptor($text, $method = 'encrypt'){
   return $text; 
 }
 
-//Funcção que gera um código para a redefinição de senha
+/**
+ * Função que gera um número aleatório
+ * 
+ * @param $length Tamanho do hash a ser gerado
+ * @return $code Hash de tamanho definido
+ */
 function random_code_generator($lenght) {
   $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   $code = '';

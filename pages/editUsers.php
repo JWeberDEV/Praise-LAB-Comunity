@@ -96,16 +96,16 @@
 
   const SaveUser = () => {
     let data = {
-            action: 'save_user',
-            id: $("input[name=id]").val(),
-            name: $("input[name=name]").val(),
-            phone: $("input[name=phone]").val(),
-            mail: $("input[name=mail]").val(),
-            user: $("input[name=user]").val(),
-            password: $("input[name=password]").val(),
-            profile: $("#profile").val(),
-            status: $("#status").val(),
-        }
+      action: 'save_user',
+      id: $("input[name=id]").val(),
+      name: $("input[name=name]").val(),
+      phone: $("input[name=phone]").val(),
+      mail: $("input[name=mail]").val(),
+      user: $("input[name=user]").val(),
+      password: $("input[name=password]").val(),
+      profile: $("#profile").val(),
+      status: $("#status").val(),
+    }
 
     if (!$("input[name=id]").val()) {
       // Verifica a obrigatoriedade dos campos
