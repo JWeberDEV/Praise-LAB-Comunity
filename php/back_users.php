@@ -16,30 +16,33 @@ switch ($data->action) {
     break;
 
   case 'save_user':
+
     if ($data->id != '') {
 
       // Decalara os Valores para usar o prepare
       $arrayData = [
         'id' => "$data->id",
+        'profile' => "$data->profile",
         'name' => "$data->name",
         'phone' => "$data->phone",
-        'email' => "$data->email",
-        'user' => $data->user,
-        'profile' => "$data->profile",
+        'mail' => "$data->mail",
+        'user' => "$data->user",
         'status' => "$data->status",
+        'editedBy'=> $_SESSION['userAuth']['id']
       ];
 
       // Preapara a query de fato
       $stmt = $pdo->prepare(
-        "UPDATE sealusuarios SET
-          idperfil = :idPerfil,
-          estado = :statusUser,
-          nomeusuario = :fullName,
-          email = :email,
-          usuario = :user,
-          alteradopor = {$_SESSION['userAuth']['id']},
-          alteradoem = NOW()
-        WHERE idusuario = :idUser"
+        "UPDATE user SET
+          idProfile = :profile,
+          name = :name,
+          mail = :mail,
+          phone = :phone,
+          user = :user,
+          status = :status,
+          editedBy = :editedBy,
+          editionDate = NOW()
+        WHERE id = :id"
       );
 
       // executa a query
@@ -53,9 +56,9 @@ switch ($data->action) {
         $response->message = "Erro ao editar o registro!";
       }
     } else {
-      // Cria o id do usuário
+
       $id = random_code_generator(32);
-      // Cria uma senha temporária
+
       $resh = random_code_generator(5);
 
       $arrayData = [
