@@ -119,10 +119,9 @@
     .done(response => {
       response = JSON.parse(response);
       if (response.return == 1) {
-          default_notification({type: "success", message: response.message});
-          header_url({subMenu: 'users'})
+        default_notification({type: "success", message: response.message});
       }else{
-          default_notification({type: "danger", message: response.message});
+        default_notification({type: "danger", message: response.message});
       }
     });
   }
@@ -136,8 +135,6 @@
     let response = $.post("../php/back_users.php", data)
     .done(function (response) {
       response = JSON.parse(response);
-      console.log('Profile:', profile);
-      console.log('response:', response);
       $("input[name=id]").val(response.id);
       $("input[name=name]").val(response.name);
       $("input[name=phone]").val(response.phone);

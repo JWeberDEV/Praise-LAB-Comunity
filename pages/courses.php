@@ -30,3 +30,17 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  listCourses();
+});
+
+function listCourses() {
+  $.post("../php/back_courses.php", {action: "list_courses"})
+  .done(function(response) {
+    $(".list").html(response);
+  });
+}
+
+</script>

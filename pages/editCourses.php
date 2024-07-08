@@ -1,5 +1,6 @@
 <!-- Begin Page Content -->
 <title>Criar/Editar</title>
+<input type="hidden" name="path" value="<?php echo __DIR__ ?>">
 <div class="container-fluid">
   <div class="row justify-content-center">
 
@@ -15,7 +16,7 @@
                 <div  class="row">
                   <div class="col-md-6">
                     <label class="label">Nome do curso</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="course">
                   </div>
                   <div class="col-md-6">
                     <label class="label">Descrição</label>
@@ -43,7 +44,7 @@
         </div>
         <div class="card-footer">
           <div class="row justify-content-end">
-            <a href="#" class="btn btn-primary" onclick="saveUser()">Salvar</a>
+            <a href="#" class="btn btn-primary" onclick="saveCourse()">Salvar</a>
           </div>
         </div>
       </div>
@@ -53,8 +54,18 @@
 </div>
 
 <script>
+const formData = new FormData();
+let uploadedFiles = []; // Global variable to hold the uploaded files
+let path = $('input[name="path"]').val();
 $(document).ready(function() {
-  let formData = new FormData(); // Initialize FormData in the outer scope
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
+
+  if (id) {
+    editCourses(id);
+  }
+
   $('#preview-container').hide();
   $('#change-image').hide();
   const dragArea = $('#drag-area');
@@ -94,12 +105,14 @@ $(document).ready(function() {
     $('.drag-area').show();
     previewContainer.empty();
     formData = new FormData(); // Reset FormData when changing image
+    uploadedFiles = []; // Reset uploaded files
   });
 
   function handleFiles(files) {
     $.each(files, function(index, file) {
       if (file.type.startsWith('image/')) {
         formData.append('files[]', file);
+        uploadedFiles.push(file); // Store the file in the global array
         const reader = new FileReader();
         reader.onload = function(event) {
           const img = $('<img>').attr('src', event.target.result).addClass('thumbnail');
@@ -112,36 +125,76 @@ $(document).ready(function() {
       }
     });
   }
+
 });
 
-  const saveUser = () => {
+// Example of how to call the log function
+const saveCourse = () => {
+  let thumb;
+  uploadedFiles.forEach(file => {
+    thumb = file.name;
+  });
 
-  // let data = {
-  //   action: 'save_user',
-  //   id: $("input[name=id]").val(),
-  //   name: $("input[name=name]").val(),
-  //   phone: $("input[name=phone]").val(),
-  // }
+  let data = {
+    action: 'save_course',
+    course: $("input[name=course]").val(),
+    description: $("input[name=description]").val(),
+    thumb
+  }
 
-  // if (!$("input[name=id]").val()) {
-  //   // Verifica a obrigatoriedade dos campos
-  //   if ($("input[name=user]").val() == "" || $("select[name=status]").val() == "") {
-  //     default_notification({type: "danger", message:"Os Campos obrigatórios precisam ser preenchidos"});
-  //     return;
-  //   }
-  // }
+  // uploadFiles();
 
-  // $.post("../php/back_users.php",data)
-  // .done(response => {
-  //   response = JSON.parse(response);
-  //   if (response.return == 1) {
-  //       default_notification({type: "success", message: response.message});
-  //       header_url({subMenu: 'users'})
-  //   }else{
-  //       default_notification({type: "danger", message: response.message});
-  //   }
-  // });
+  $.post("../php/back_courses.php",data)
+  .done(response => {
+    response = JSON.parse(response);
+    if (response.return == 1) {
+      default_notification({type: "success", message: response.message});
+    }else{
+      default_notification({type: "danger", message: response.message});
+    }
+  });
 }
 
+// Function to upload files to the server
+const uploadFiles = () => {
+  $.ajax({
+    url: '../php/uploadFiles.php', // Change to your PHP script path
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      console.log('Upload successful');
+      console.log(response);
+    },
+    error: function(jqXHR, textStatus, errorMessage) {
+      console.log('Upload failed');
+      console.log(errorMessage);
+    }
+  });
+}
+
+const editCourses = (args) =>{
+  let data = {
+    action: "list_course_id",
+    idUser: args
+  }
+
+  let response = $.post("../php/back_courses.php", data)
+  .done(function (response) {
+    response = JSON.parse(response);
+    console.log(response);
+    $("input[name=course]").val(response.name);
+    $("input[name=description]").val(response.description);
+    console.log(path)
+    const img = $('<img>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
+    $('#preview-container').empty().append(img).show();
+    $('#change-image').show();
+    $('.drag-area').hide();
+
+  }).fail(() => {
+    default_notification({ type: "danger", message: error });
+  });
+}
 
 </script>
