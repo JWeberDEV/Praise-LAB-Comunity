@@ -1,6 +1,7 @@
 <!-- Begin Page Content -->
 <title>Criar/Editar Aula</title>
-<input type="hidden" name="path" value="<?php echo __DIR__ ?>">
+<input type="hidden" name="idCourse">
+<input type="hidden" name="idClass">
 <div class="container-fluid">
   <div class="row justify-content-center">
 
@@ -49,7 +50,26 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6 pt-3 classes">
+      <div class="card border border-dark shadow mb4">
+          <div class="card-header" style="color: black;">
+            <strong>Cursos</strong>
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead class="thead-light">
+                <th>Aula</th>
+                <th>Descrição</th>
+                <th colspan="3" class="text-right">Ações</th>
+              </thead>
+              <tbody class="list">
 
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
   </div>
 </div>
 
@@ -57,13 +77,15 @@
 const formData = new FormData();
 let uploadedFiles = []; // Global variable to hold the uploaded files
 let path = $('input[name="path"]').val();
+let contend = "";
 $(document).ready(function() {
+  $('.classes').hide();
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-
-  if (id) {
-    editCourses(id);
+  const idCourse = urlParams.get('id');
+  $("input[name=idCourse]").val(idCourse)
+  if (idCourse) {
+    listClasses(idCourse);
   }
 
   $('#preview-container').hide();
@@ -110,45 +132,45 @@ $(document).ready(function() {
 
   function handleFiles(files) {
     $.each(files, function(index, file) {
-      if (file.type.startsWith('videos/')) {
-        formData.append('files[]', file);
-        uploadedFiles.push(file); // Store the file in the global array
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          const img = $('<video controls>').attr('src', event.target.result).addClass('thumbnail');
-          previewContainer.append(img);
-        }
-        reader.readAsDataURL(file);
-        $('#preview-container').show();
-        $('#change-image').show();
-        $('.drag-area').hide();
+      formData.append('files[]', file);
+      uploadedFiles.push(file); // Store the file in the global array
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const video = $('<video controls>').attr('src', event.target.result).addClass('thumbnail');
+        previewContainer.append(video);
       }
+      reader.readAsDataURL(file);
+      $('#preview-container').show();
+      $('#change-image').show();
+      $('.drag-area').hide();
     });
   }
 
 });
 
-// Example of how to call the log function
 const saveClass = () => {
-  let thumb;
+  let video;
+
   uploadedFiles.forEach(file => {
-    thumb = file.name;
+    video = file.name;
   });
 
   let data = {
     action: 'save_class',
-    course: $("input[name=class]").val(),
+    idCourse: $("input[name=idCourse]").val(),
+    idClass: $("input[name=idClass]").val(),
+    class: $("input[name=class]").val(),
     description: $("input[name=description]").val(),
-    thumb
+    video
   }
-
-  // uploadFiles();
 
   $.post("../php/back_class.php",data)
   .done(response => {
     response = JSON.parse(response);
     if (response.return == 1) {
       default_notification({type: "success", message: response.message});
+      uploadFiles();
+      // window.location.href = "/?route=route3";
     }else{
       default_notification({type: "danger", message: response.message});
     }
@@ -174,7 +196,14 @@ const uploadFiles = () => {
   });
 }
 
-const editCourses = (args) =>{
+function listClasses() {
+  $.post("../php/back_class.php", {action: "list_classes"})
+  .done(function(response) {
+    $(".list").html(response);
+  });
+}
+
+const editClass = (args) =>{
   let data = {
     action: "list_class_id",
     idUser: args
@@ -183,11 +212,9 @@ const editCourses = (args) =>{
   let response = $.post("../php/back_class.php", data)
   .done(function (response) {
     response = JSON.parse(response);
-    console.log(response);
     $("input[name=class]").val(response.name);
     $("input[name=description]").val(response.description);
-    console.log(path)
-    const img = $('<img>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
+    const img = $('<video controls>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
     $('#preview-container').empty().append(img).show();
     $('#change-image').show();
     $('.drag-area').hide();

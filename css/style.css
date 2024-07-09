@@ -11478,7 +11478,7 @@ body.sidebar-toggled footer.sticky-footer {
   margin-top: 20px;
 }
 
-#preview-container img.thumbnail {
+#preview-container video,img.thumbnail {
   max-width: 46.5rem;
   margin: 5px;
   border: 1px solid #ddd;

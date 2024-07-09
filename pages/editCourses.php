@@ -128,7 +128,6 @@ $(document).ready(function() {
 
 });
 
-// Example of how to call the log function
 const saveCourse = () => {
   let thumb;
   uploadedFiles.forEach(file => {
@@ -149,6 +148,7 @@ const saveCourse = () => {
     if (response.return == 1) {
       default_notification({type: "success", message: response.message});
       uploadFiles();
+      window.location.href = "/?route=route3";
     }else{
       default_notification({type: "danger", message: response.message});
     }
@@ -184,10 +184,8 @@ const editCourses = (args) =>{
   let response = $.post("../php/back_courses.php", data)
   .done(function (response) {
     response = JSON.parse(response);
-    console.log(response);
     $("input[name=course]").val(response.name);
     $("input[name=description]").val(response.description);
-    console.log(path)
     const img = $('<img>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
     $('#preview-container').empty().append(img).show();
     $('#change-image').show();
