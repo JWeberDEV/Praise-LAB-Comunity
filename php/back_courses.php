@@ -89,6 +89,9 @@ switch ($data->action){
             <td>" . $value['name'] . "</td>
             <td>" . $value['description'] . "</td>
             <td class='actions text-right'>
+              <a type='button' class='btn btn-primary btn-sm btn-just-ico' data-toggle='tooltip' title='Aulas' href=\"?route=route5&id='".$value['id']."'\">
+                <i class='fa-solid fa-list'></i>
+              </a>
               <a type='button' class='btn btn-warning btn-sm btn-just-ico' data-toggle='tooltip' title='Editar' href=\"?route=route4&id='".$value['id']."'\">
                 <i class='fas fa-pencil-alt'></i>
               </a>

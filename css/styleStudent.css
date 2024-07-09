@@ -620,7 +620,7 @@ section {
   position: relative;
   z-index: 100;
   background: rgb(22,125,134);
-  background: linear-gradient(180deg, rgba(22,125,134,1) 0%, rgba(61,70,79,1) 40%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(180deg, rgba(22,125,134,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 .icon-boxes .icon-box {
@@ -667,6 +667,7 @@ section {
 --------------------------------------------------------------*/
 .about {
   padding: 140px 0;
+  max-width: 100%;
   background: url("../img/about-bg.png") top center no-repeat;
   position: relative;
 }

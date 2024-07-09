@@ -3,24 +3,23 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Anyar Bootstrap Template - Index</title>
+  <title>Home</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="/img/praise_icon.ico" rel="icon">
-  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
+  <!-- Libs CSS Files -->
   <link href="/libs/animate.css/animate.min.css" rel="stylesheet">
   <link href="/libs/aos/aos.css" rel="stylesheet">
   <link href="/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -46,8 +45,8 @@
   <div id="topbar" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope-fill"></i><a>info@exemplo.com</a>
-        <i class="bi bi-phone-fill phone-icon"></i> (51) 99683-6108
+        <i class="bi bi-envelope-fill"></i><a>suporte@praiselab.com.br</a>
+        <i class="bi bi-phone-fill phone-icon"></i> (51) 8246-3265
       </div>
       <div class="cta d-none d-md-block">
         <a href="#about" class="scrollto">Entre em contato</a>
@@ -65,8 +64,8 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="#about">Cursos</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
@@ -87,13 +86,14 @@
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
             </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          </li>-->
+          <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
+
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
@@ -133,6 +133,7 @@
       </a>
 
     </div>
+    
   </section><!-- End Hero -->
 
   <main id="main">
@@ -142,9 +143,14 @@
       <div class="container">
 
         <div class="row">
+          <div class="col-md-12">
+          <div class="col-lg-5 align-items-stretch position-relative video-box" style='background-image: url("assets/img/why-us.jpg");' data-aos="fade-right">
+            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn mb-4"></a>
+          </div>
+          </div>
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up">
             <div class="icon-box p-0">
-              <a href="index.html" class="logo"><img src="/img/piano.jpg" alt="" class="img-fluid"></a>
+              <a href="studentCourse.php" class="logo"><img src="/img/piano.jpg" alt="" class="img-fluid"></a>
               <h4 class="title text-center pt-1"><a href="">Fundamentos do Piano</a></h4>
               <p class="description text-center">Módulo de funadamentos para Piano</p>
             </div>
@@ -179,7 +185,7 @@
     </section><!-- End Icon Boxes Section -->
 
     <!-- ======= About Us Section ======= -->
-    <section id="about" class="about">
+    <!-- <section id="about" class="about">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -210,10 +216,11 @@
         </div>
 
       </div>
-    </section><!-- End About Us Section -->
+    </section> -->
+    <!-- End About Us Section -->
 
     <!-- ======= Why Us Section ======= -->
-    <section id="why-us" class="why-us">
+    <!-- <section id="why-us" class="why-us">
       <div class="container-fluid">
 
         <div class="row">
@@ -268,10 +275,11 @@
         </div>
 
       </div>
-    </section><!-- End Why Us Section -->
+    </section> -->
+    <!-- End Why Us Section -->
 
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
+    <!-- <section id="services" class="services">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -325,10 +333,11 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section> -->
+    <!-- End Services Section -->
 
     <!-- ======= Cta Section ======= -->
-    <section id="cta" class="cta">
+    <!-- <section id="cta" class="cta">
       <div class="container">
 
         <div class="row" data-aos="zoom-in">
@@ -342,10 +351,11 @@
         </div>
 
       </div>
-    </section><!-- End Cta Section -->
+    </section> -->
+    <!-- End Cta Section -->
 
     <!-- ======= Portfoio Section ======= -->
-    <section id="portfolio" class="portfoio">
+    <!-- <section id="portfolio" class="portfoio">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -459,10 +469,11 @@
         </div>
 
       </div>
-    </section><!-- End Portfoio Section -->
+    </section> -->
+    <!-- End Portfoio Section -->
 
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
+    <!-- <section id="team" class="team section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -543,10 +554,11 @@
         </div>
 
       </div>
-    </section><!-- End Team Section -->
+    </section> -->
+    <!-- End Team Section -->
 
     <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
+    <!-- <section id="pricing" class="pricing">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -628,10 +640,11 @@
         </div>
 
       </div>
-    </section><!-- End Pricing Section -->
+    </section> -->
+    <!-- End Pricing Section -->
 
     <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq section-bg">
+    <!-- <section id="faq" class="faq section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -689,10 +702,11 @@
         </div>
 
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section> -->
+    <!-- End Frequently Asked Questions Section -->
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
+    <!-- <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -755,7 +769,8 @@
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section> -->
+    <!-- End Contact Section -->
 
   </main><!-- End #main -->
 
@@ -766,12 +781,12 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <h4>Com duvidas?</h4>
+            <p>Envie para nosso suporte!</p>
           </div>
           <div class="col-lg-6">
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <input type="email" name="email"><input type="submit" value="Enviar">
             </form>
           </div>
         </div>
@@ -782,7 +797,7 @@
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <!-- <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
@@ -791,9 +806,9 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
-          </div>
+          </div> -->
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <!-- <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
@@ -802,29 +817,29 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
             </ul>
-          </div>
+          </div> -->
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
+            <h4>Fale conosco</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              Rua Jose de alencar, 301<br>
+              Novo Hamburgo, Centro<br>
+              Brasil <br><br>
+              <strong>Phone:</strong> 51 8246-3265<br>
+              <strong>Email:</strong> suporte@praiselab.com.br<br>
             </p>
 
           </div>
 
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>About Anyar</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+            <h3>Sobre o Praiselab</h3>
+            <p>Acompanhe nosso trabalho através das nossas redes sociais, tenha suas experiências, interaja com outros alunos e compartilhe!</p>
             <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              <!-- <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> -->
+              <a href="https://www.youtube.com/@praiselab" class="facebook"><i class="bi bi-youtube"></i></a>
+              <a href="https://www.instagram.com/praiselab/" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <!-- <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a> -->
+              <!-- <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> -->
             </div>
           </div>
 
@@ -834,14 +849,14 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Anyar</span></strong>. All Rights Reserved
+        <span>Copyright &copy; Praise Lab <script> document.write(new Date().getFullYear()) </script></span>
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/anyar-free-multipurpose-one-page-bootstrap-theme/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Desenvolvido por <a href="https://www.instagram.com/weberjosias1/">Josias Weber</a>
       </div>
     </div>
   </footer><!-- End Footer -->
@@ -849,7 +864,7 @@
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
+  <!-- Libs JS Files -->
   <script src="/libs/aos/aos.js"></script>
   <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/libs/glightbox/js/glightbox.min.js"></script>

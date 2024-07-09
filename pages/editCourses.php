@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<title>Criar/Editar</title>
+<title>Criar/Editar Cursos</title>
 <input type="hidden" name="path" value="<?php echo __DIR__ ?>">
 <div class="container-fluid">
   <div class="row justify-content-center">
@@ -7,7 +7,7 @@
     <div class="col-md-6 pt-3">
       <div class="card mb4">
         <div class="card-header" style="color: black;">
-          <strong>Criação de cursos/aulas</strong>
+          <strong>Criação de cursos/módulos</strong>
         </div>
         <div class="card-body">
           <div class="tab-content" id="pills-tabContent">
@@ -15,7 +15,7 @@
               <div class="form-group">
                 <div  class="row">
                   <div class="col-md-6">
-                    <label class="label">Nome do curso</label>
+                    <label class="label">Nome</label>
                     <input type="text" class="form-control" name="course">
                   </div>
                   <div class="col-md-6">
@@ -27,8 +27,8 @@
                       <div class="upload-container p-2">
                         <div class="drag-area" id="drag-area">
                           <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                          <header>Drag & Drop to Upload File</header>
-                          <span>OR</span>
+                          <header>Arraste ou clique para adicionar uma imágem</header>
+                          <span>OU</span>
                           <button id="browse-btn">Selecione o Arquivo</button>
                           <input type="file" id="file-input" hidden>
                         </div>
