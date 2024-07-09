@@ -43,7 +43,6 @@ $routine = "";
                         require_once(__DIR__ ."/pages/default_content.php");
                     }
                 ?>
-            <input type="hidden" name="module" value="<?php echo $module;?>">
             </div>
             <!-- End of Main Content -->
 

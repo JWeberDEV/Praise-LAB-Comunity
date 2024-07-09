@@ -73,7 +73,14 @@ switch ($data->action){
     echo (json_encode($response));
     
     break;
-  case 'list_courses':
+  case 'list_classes':
+
+    $data->idCourse = trim($data->idCourse, "'");
+
+    $arrayData = [
+      'id' => $data->idCourse,
+    ];
+
     $stmt = $pdo->prepare("SELECT 
         s.id,
         s.idCourse,
@@ -82,9 +89,10 @@ switch ($data->action){
       FROM class s
       JOIN course c ON c.id = s.idCourse
       WHERE s.deletedDate IS NULL
+      AND s.idCourse = :id
       ORDER BY NAME
     ");
-    $stmt->execute();
+    $stmt->execute($arrayData);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $list = '';
     foreach ($results as $key => $value) {

@@ -4,7 +4,25 @@
 <input type="hidden" name="idClass">
 <div class="container-fluid">
   <div class="row justify-content-center">
+    <div class="col-md-8 pt-3 classes">
+      <div class="card border border-dark shadow mb4">
+        <div class="card-header" style="color: black;">
+          <strong>Cursos</strong>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <th>Aula</th>
+              <th>Descrição</th>
+              <th colspan="3" class="text-right">Ações</th>
+            </thead>
+            <tbody class="list" data-bs-spy="scroll">
 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     <div class="col-md-6 pt-3">
       <div class="card mb4">
         <div class="card-header" style="color: black;">
@@ -50,26 +68,6 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 pt-3 classes">
-      <div class="card border border-dark shadow mb4">
-          <div class="card-header" style="color: black;">
-            <strong>Cursos</strong>
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead class="thead-light">
-                <th>Aula</th>
-                <th>Descrição</th>
-                <th colspan="3" class="text-right">Ações</th>
-              </thead>
-              <tbody class="list">
-
-              </tbody>
-            </table>
-          </div>
-          
-        </div>
-      </div>
   </div>
 </div>
 
@@ -79,7 +77,6 @@ let uploadedFiles = []; // Global variable to hold the uploaded files
 let path = $('input[name="path"]').val();
 let contend = "";
 $(document).ready(function() {
-  $('.classes').hide();
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const idCourse = urlParams.get('id');
@@ -197,9 +194,9 @@ const uploadFiles = () => {
 }
 
 function listClasses() {
-  $.post("../php/back_class.php", {action: "list_classes"})
+  $.post("../php/back_class.php", {action: "list_classes",idCourse:$("input[name=idCourse]").val()})
   .done(function(response) {
-    $(".list").html(response);
+    $(".list").html(response)
   });
 }
 
