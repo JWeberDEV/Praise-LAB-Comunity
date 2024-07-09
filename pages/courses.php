@@ -43,4 +43,42 @@ function listCourses() {
   });
 }
 
+const deleteCourse = (args) => {
+  let data = {
+    action: "delete_course",           
+    id: args
+  }
+
+  let html = 
+  `<i style="font-size: 130px; color: #edb72c;" class="fas fa-exclamation-triangle"></i>
+  </br></br>
+  <div class="alert alert-danger" role="alert">
+    Tem Certeza de que deseja excluir este Curso/Módulo?
+  </div>
+  `;
+
+  Swal.fire({
+    html: html,
+    customClass: 'swal-height',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Confirmar',
+    showCancelButton: true,
+    allowEnterKey: true,
+    confirmButtonColor: "#4e73df",
+    width: 500,
+    preConfirm:() => {
+      $.post("../php/back_courses.php",data)
+      .done(response => {
+        response = JSON.parse(response);
+        if (response.return == 1) {
+          default_notification({type: "success", message: response.message});
+          listCourses();
+        }else{
+          default_notification({type: "danger", message: response.message});
+        }
+      });
+    },
+  });
+}
+
 </script>

@@ -157,7 +157,7 @@
           </div>
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
             <div class="icon-box p-0">
-              <a href="index.html" class="logo"><img src="/img/guitar.jpg" alt="" class="img-fluid"></a>
+              <a href="#" class="logo"><img src="/img/guitar.jpg" alt="" class="img-fluid"></a>
               <h4 class="title text-center pt-1"><a href="">Fundamentos da Guitarra</a></h4>
               <p class="description text-center">Módulo de funadamentos para Guitarra</p>
             </div>
@@ -165,7 +165,7 @@
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box p-0">
-              <a href="index.html" class="logo"><img src="/img/drum_bass.jpg" alt="" class="img-fluid"></a>
+              <a href="#" class="logo"><img src="/img/drum_bass.jpg" alt="" class="img-fluid"></a>
               <h4 class="title text-center pt-1"><a href="">Fundamentos da Bateria</a></h4>
               <p class="description text-center">Módulo de funadamentos para Bateria</p>
             </div>
@@ -173,7 +173,7 @@
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
             <div class="icon-box p-0">
-              <a href="index.html" class="logo"><img src="/img/bass.jpg" alt="" class="img-fluid"></a>
+              <a href="#" class="logo"><img src="/img/bass.jpg" alt="" class="img-fluid"></a>
               <h4 class="title text-center pt-1"><a href="">Fundamentos do Baixo</a></h4>
               <p class="description text-center">Módulo de funadamentos para Baixo</p>
             </div>

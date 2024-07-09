@@ -1,6 +1,6 @@
 <!-- Begin Page Content -->
 <title>Criar/Editar Cursos</title>
-<input type="hidden" name="path" value="<?php echo __DIR__ ?>">
+<input type="hidden" name="id">
 <div class="container-fluid">
   <div class="row justify-content-center">
 
@@ -27,7 +27,7 @@
                       <div class="upload-container p-2">
                         <div class="drag-area" id="drag-area">
                           <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                          <header>Arraste ou clique para adicionar uma imágem</header>
+                          <header>Arraste ou clique para adicionar uma imagem</header>
                           <span>OU</span>
                           <button id="browse-btn">Selecione o Arquivo</button>
                           <input type="file" id="file-input" hidden>
@@ -137,18 +137,18 @@ const saveCourse = () => {
 
   let data = {
     action: 'save_course',
+    id: $("input[name=id]").val(),
     course: $("input[name=course]").val(),
     description: $("input[name=description]").val(),
     thumb
   }
-
-  // uploadFiles();
 
   $.post("../php/back_courses.php",data)
   .done(response => {
     response = JSON.parse(response);
     if (response.return == 1) {
       default_notification({type: "success", message: response.message});
+      uploadFiles();
     }else{
       default_notification({type: "danger", message: response.message});
     }
@@ -175,9 +175,10 @@ const uploadFiles = () => {
 }
 
 const editCourses = (args) =>{
+  $("input[name=id]").val(args);
   let data = {
     action: "list_course_id",
-    idUser: args
+    id: args
   }
 
   let response = $.post("../php/back_courses.php", data)

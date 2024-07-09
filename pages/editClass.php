@@ -16,7 +16,7 @@
                 <div  class="row">
                   <div class="col-md-6">
                     <label class="label">Nome</label>
-                    <input type="text" class="form-control" name="course">
+                    <input type="text" class="form-control" name="class">
                   </div>
                   <div class="col-md-6">
                     <label class="label">Descrição</label>
@@ -44,7 +44,7 @@
         </div>
         <div class="card-footer">
           <div class="row justify-content-end">
-            <a href="#" class="btn btn-primary" onclick="saveCourse()">Salvar</a>
+            <a href="#" class="btn btn-primary" onclick="saveClass()">Salvar</a>
           </div>
         </div>
       </div>
@@ -54,5 +54,146 @@
 </div>
 
 <script>
+const formData = new FormData();
+let uploadedFiles = []; // Global variable to hold the uploaded files
+let path = $('input[name="path"]').val();
+$(document).ready(function() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
 
+  if (id) {
+    editCourses(id);
+  }
+
+  $('#preview-container').hide();
+  $('#change-image').hide();
+  const dragArea = $('#drag-area');
+  const browseBtn = $('#browse-btn');
+  const fileInput = $('#file-input');
+  const previewContainer = $('#preview-container');
+  const changeImage = $('#change-image');
+
+  browseBtn.on('click', function() {
+    fileInput.click();
+  });
+
+  fileInput.on('change', function(event) {
+    const files = event.target.files;
+    handleFiles(files);
+  });
+
+  dragArea.on('dragover', function(event) {
+    event.preventDefault();
+    dragArea.addClass('active');
+  });
+
+  dragArea.on('dragleave', function() {
+    dragArea.removeClass('active');
+  });
+
+  dragArea.on('drop', function(event) {
+    event.preventDefault();
+    dragArea.removeClass('active');
+    const files = event.originalEvent.dataTransfer.files;
+    handleFiles(files);
+  });
+
+  changeImage.on('click', function(event) {
+    $('#preview-container').hide();
+    $('#change-image').hide();
+    $('.drag-area').show();
+    previewContainer.empty();
+    formData = new FormData(); // Reset FormData when changing image
+    uploadedFiles = []; // Reset uploaded files
+  });
+
+  function handleFiles(files) {
+    $.each(files, function(index, file) {
+      if (file.type.startsWith('videos/')) {
+        formData.append('files[]', file);
+        uploadedFiles.push(file); // Store the file in the global array
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const img = $('<video controls>').attr('src', event.target.result).addClass('thumbnail');
+          previewContainer.append(img);
+        }
+        reader.readAsDataURL(file);
+        $('#preview-container').show();
+        $('#change-image').show();
+        $('.drag-area').hide();
+      }
+    });
+  }
+
+});
+
+// Example of how to call the log function
+const saveClass = () => {
+  let thumb;
+  uploadedFiles.forEach(file => {
+    thumb = file.name;
+  });
+
+  let data = {
+    action: 'save_class',
+    course: $("input[name=class]").val(),
+    description: $("input[name=description]").val(),
+    thumb
+  }
+
+  // uploadFiles();
+
+  $.post("../php/back_class.php",data)
+  .done(response => {
+    response = JSON.parse(response);
+    if (response.return == 1) {
+      default_notification({type: "success", message: response.message});
+    }else{
+      default_notification({type: "danger", message: response.message});
+    }
+  });
+}
+
+// Function to upload files to the server
+const uploadFiles = () => {
+  $.ajax({
+    url: '../php/uploadFiles.php', // Change to your PHP script path
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      console.log('Upload successful');
+      console.log(response);
+    },
+    error: function(jqXHR, textStatus, errorMessage) {
+      console.log('Upload failed');
+      console.log(errorMessage);
+    }
+  });
+}
+
+const editCourses = (args) =>{
+  let data = {
+    action: "list_class_id",
+    idUser: args
+  }
+
+  let response = $.post("../php/back_class.php", data)
+  .done(function (response) {
+    response = JSON.parse(response);
+    console.log(response);
+    $("input[name=class]").val(response.name);
+    $("input[name=description]").val(response.description);
+    console.log(path)
+    const img = $('<img>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
+    $('#preview-container').empty().append(img).show();
+    $('#change-image').show();
+    $('.drag-area').hide();
+
+  }).fail(() => {
+    default_notification({ type: "danger", message: error });
+  });
+}
 </script>

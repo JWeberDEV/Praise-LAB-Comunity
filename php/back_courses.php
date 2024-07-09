@@ -9,10 +9,11 @@ $data = (Object) $_REQUEST;
 $response = (object) [];
 switch ($data->action){
   case 'save_course':
-    if (isset($data->id) != '') {
+    if ($data->id != '') {
 
       // Decalara os Valores para usar o prepare
       $arrayData = [
+        'id' => $data->id,
         'course' => "$data->course",
         'description' => "$data->description",
         'thumb' => "$data->thumb",
@@ -22,10 +23,9 @@ switch ($data->action){
       // Preapara a query de fato
       $stmt = $pdo->prepare(
         "UPDATE course SET
-          idProfile = :profile,
-          name = :name,
+          name = :course,
           description = :description,
-          thumb = :thumb,
+          fileName = :thumb,
           editedBy = :sessionUser,
           editionDate = NOW()
         WHERE id = :id"
@@ -83,7 +83,6 @@ switch ($data->action){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $list = '';
     foreach ($results as $key => $value) {
-      print_r($value);
       if ($value) {
         $list .= "<tr>
             <td>" . $value['name'] . "</td>
@@ -116,16 +115,35 @@ switch ($data->action){
     break;
     case 'list_course_id':
       $arrayData = [
-        'idUser' => "$data->idUser"
+        'id' => "$data->id"
       ];
   
-      $id = "{$arrayData['idUser']}";
+      $id = "{$arrayData['id']}";
   
       $stmt = $pdo->prepare("SELECT * FROM course WHERE id = $id");
       $stmt->execute();
       $results = $stmt->fetch();
   
       print_r(json_encode($results));
+      break;
+    case 'delete_course':
+
+      $arrayData = [
+        'id' => "$data->id"
+      ];
+  
+      $stmt = $pdo->prepare("UPDATE course SET deletedBy = '{$_SESSION['userAuth']['id']}', deletedDate = NOW() WHERE id = :id");
+      $execute = $stmt->execute($arrayData);
+  
+      if ($execute) {
+        $response->return = 1;
+        $response->message = "Registro Deletado com sucesso!";
+      } else {
+        $response->return = 0;
+        $response->message = "Erro ao deletar o registro!";
+      }
+  
+      echo json_encode($response);
       break;
   
 
