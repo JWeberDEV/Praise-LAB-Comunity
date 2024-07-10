@@ -120,6 +120,7 @@
       response = JSON.parse(response);
       if (response.return == 1) {
         default_notification({type: "success", message: response.message});
+        window.location.href = "/?route=route";
       }else{
         default_notification({type: "danger", message: response.message});
       }

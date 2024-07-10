@@ -82,7 +82,7 @@ switch ($data->action) {
         $response->return = 1;
         $response->message = "Registro criado com sucesso! Um e-mail será enviado para: <b> $data->mail </b>";
 
-        send_password([$resh, $data->mail, $data->user, $data->name]);
+        // send_password([$resh, $data->mail, $data->user, $data->name]);
       } else {
         $response->return = 0;
         $response->message = "Erro ao criar o registro!";

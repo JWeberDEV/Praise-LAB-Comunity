@@ -22,9 +22,12 @@
                     <label class="label">Descrição</label>
                     <input id="phone" type="text" class="form-control" name="description">
                   </div>
+                  <div class="col-md-6 pt-2">
+                    <button type="button" id="change-image" class="btn btn-primary">Alterar</button>
+                  </div>
                   <div class="col-md-12 pt-3">
-                    <div class="light-card shadow ">
-                      <div class="upload-container p-2">
+                    <div class="light-card shadow p-2">
+                      <div class="upload-container">
                         <div class="drag-area" id="drag-area">
                           <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                           <header>Arraste ou clique para adicionar uma imagem</header>
@@ -32,7 +35,6 @@
                           <button id="browse-btn">Selecione o Arquivo</button>
                           <input type="file" id="file-input" hidden>
                         </div>
-                        <button type="button" id="change-image" class="btn btn-primary">Alterar</button>
                         <div id="preview-container"></div>
                       </div>  
                     </div>

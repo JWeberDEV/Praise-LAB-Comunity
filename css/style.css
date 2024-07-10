@@ -11473,15 +11473,17 @@ body.sidebar-toggled footer.sticky-footer {
 
 #preview-container {
   display: flex;
-
+  align-items: center;
+  justify-content:space-evenly;
   flex-wrap: wrap;
   margin-top: 20px;
 }
 
 #preview-container video,img.thumbnail {
-  max-width: 46.5rem;
+  max-width: 46rem;
   margin: 5px;
   border: 1px solid #ddd;
   border-radius: 5px;
   align-items: center;
+  justify-content:center;
 }
