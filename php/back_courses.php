@@ -11,13 +11,15 @@ switch ($data->action){
   case 'save_course':
     if ($data->id != '') {
 
+      $data->id = trim($data->id, "'");
+
       // Decalara os Valores para usar o prepare
       $arrayData = [
         'id' => $data->id,
         'course' => "$data->course",
         'description' => "$data->description",
         'thumb' => "$data->thumb",
-        'sessionUser' => $_SESSION['userAuth']['id']
+        'sessionUser' => "{$_SESSION['userAuth']['id']}"
       ];
 
       // Preapara a query de fato
@@ -32,7 +34,7 @@ switch ($data->action){
       );
 
       // executa a query
-      $execute = $stmt->execute($arrayData);
+      $execute = $stmt->execute($arrayData) or die ("Error executing query: " . $stmt->error);
 
       if ($execute) {
         $response->return = 1;

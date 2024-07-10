@@ -4,12 +4,41 @@
 <input type="hidden" name="idClass">
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8 pt-3 classes">
+    <div class="col-md-6 pt-3 classes">
       <div class="card border border-dark shadow mb4">
         <div class="card-header" style="color: black;">
-          <strong>Cursos</strong>
+          <strong id="courseName"></strong>
         </div>
         <div class="card-body">
+          <h5 style="color: black;" ><strong>Novo Registro</strong></h5>
+          <div class="form-group">
+            <div  class="row">
+              <div class="col-md-6">
+                <label class="label">Nome</label>
+                <input type="text" class="form-control" name="class">
+              </div>
+              <div class="col-md-6">
+                <label class="label">Descrição</label>
+                <input id="phone" type="text" class="form-control" name="description">
+              </div>
+              <div class="col-md-12 pt-3">
+                <div class="light-card shadow ">
+                  <div class="upload-container p-2">
+                    <div class="drag-area" id="drag-area">
+                      <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                      <header>Arraste ou clique para adicionar um vídeo</header>
+                      <span>OU</span>
+                      <button id="browse-btn">Selecione o Arquivo</button>
+                      <input type="file" id="file-input" hidden>
+                    </div>
+                    <button type="button" id="change-image" class="btn btn-primary">Alterar</button>
+                    <div id="preview-container"></div>
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+
           <table class="table table-hover">
             <thead class="thead-light">
               <th>Aula</th>
@@ -20,46 +49,6 @@
 
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 pt-3">
-      <div class="card mb4">
-        <div class="card-header" style="color: black;">
-          <strong>Criação de aulas</strong>
-        </div>
-        <div class="card-body">
-          <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-basic-data" role="tabpanel" aria-labelledby="tab-pills-basic-data">
-              <div class="form-group">
-                <div  class="row">
-                  <div class="col-md-6">
-                    <label class="label">Nome</label>
-                    <input type="text" class="form-control" name="class">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="label">Descrição</label>
-                    <input id="phone" type="text" class="form-control" name="description">
-                  </div>
-                  <div class="col-md-12 pt-3">
-                    <div class="light-card shadow ">
-                      <div class="upload-container p-2">
-                        <div class="drag-area" id="drag-area">
-                          <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                          <header>Arraste ou clique para adicionar um vídeo</header>
-                          <span>OU</span>
-                          <button id="browse-btn">Selecione o Arquivo</button>
-                          <input type="file" id="file-input" hidden>
-                        </div>
-                        <button type="button" id="change-image" class="btn btn-primary">Alterar</button>
-                        <div id="preview-container"></div>
-                      </div>  
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="card-footer">
           <div class="row justify-content-end">
@@ -83,6 +72,7 @@ $(document).ready(function() {
   $("input[name=idCourse]").val(idCourse)
   if (idCourse) {
     listClasses(idCourse);
+    showCourseName(idCourse);
   }
 
   $('#preview-container').hide();
@@ -167,7 +157,6 @@ const saveClass = () => {
     if (response.return == 1) {
       default_notification({type: "success", message: response.message});
       uploadFiles();
-      // window.location.href = "/?route=route3";
     }else{
       default_notification({type: "danger", message: response.message});
     }
@@ -192,18 +181,32 @@ const uploadFiles = () => {
     }
   });
 }
-
-function listClasses() {
+const listClasses = () =>{
   $.post("../php/back_class.php", {action: "list_classes",idCourse:$("input[name=idCourse]").val()})
   .done(function(response) {
     $(".list").html(response)
   });
 }
 
+const showCourseName = (args) =>{
+  let data = {
+    action: "show_course_name",
+    idCourse: args
+  }
+
+  let response = $.post("../php/back_class.php", data)
+  .done(function (response) {
+    response = JSON.parse(response);
+    $("#courseName").html(response.name);
+  }).fail(() => {
+    default_notification({ type: "danger", message: error });
+  });
+}
+
 const editClass = (args) =>{
   let data = {
-    action: "list_class_id",
-    idUser: args
+    action: "show_class_id",
+    idCourse: args
   }
 
   let response = $.post("../php/back_class.php", data)
@@ -211,13 +214,49 @@ const editClass = (args) =>{
     response = JSON.parse(response);
     $("input[name=class]").val(response.name);
     $("input[name=description]").val(response.description);
-    const img = $('<video controls>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
-    $('#preview-container').empty().append(img).show();
+    const video = $('<video controls>').attr('src', `uploads/${response.fileName}`).addClass('thumbnail');
+    $('#preview-container').empty().append(video).show();
     $('#change-image').show();
     $('.drag-area').hide();
-
   }).fail(() => {
     default_notification({ type: "danger", message: error });
+  });
+}
+
+const deleteClass = (args) => {
+  let data = {
+    action: "delete_class",           
+    id: args
+  }
+
+  let html = 
+  `<i style="font-size: 130px; color: #edb72c;" class="fas fa-exclamation-triangle"></i>
+  </br></br>
+  <div class="alert alert-danger" role="alert">
+    Tem Certeza de que deseja excluir esta aula?
+  </div>`;
+
+  Swal.fire({
+    html: html,
+    customClass: 'swal-height',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Confirmar',
+    showCancelButton: true,
+    allowEnterKey: true,
+    confirmButtonColor: "#4e73df",
+    width: 500,
+    preConfirm:() => {
+      $.post("../php/back_class.php",data)
+      .done(response => {
+        response = JSON.parse(response);
+        if (response.return == 1) {
+          default_notification({type: "success", message: response.message});
+          listClasses($("input[name=idCourse]").val());
+        }else{
+          default_notification({type: "danger", message: response.message});
+        }
+      });
+    },
   });
 }
 </script>

@@ -101,13 +101,10 @@ switch ($data->action){
             <td>" . $value['name'] . "</td>
             <td>" . $value['description'] . "</td>
             <td class='actions text-right'>
-              <a type='button' class='btn btn-primary btn-sm btn-just-ico' data-toggle='tooltip' title='Aulas' href=\"?route=route5&id='".$value['id']."'\">
-                <i class='fa-solid fa-list'></i>
-              </a>
-              <a type='button' class='btn btn-warning btn-sm btn-just-ico' data-toggle='tooltip' title='Editar' href=\"?route=route4&id='".$value['id']."'\">
+              <button type='button' class='btn btn-warning btn-sm btn-just-ico' data-toggle='tooltip' data-placement='top' title='Editar' onclick=\"editClass('".$value['id']."')\">
                 <i class='fas fa-pencil-alt'></i>
-              </a>
-              <button type='button' class='btn btn-danger btn-sm btn-just-ico' data-toggle='tooltip' data-placement='top' title='Excluir' onclick=\"deleteCourse('".$value['id']."')\">
+              </button>
+              <button type='button' class='btn btn-danger btn-sm btn-just-ico' data-toggle='tooltip' data-placement='top' title='Excluir' onclick=\"deleteClass('".$value['id']."')\">
                 <i class='fas fa-trash'></i>
               </button>
             </td>
@@ -125,6 +122,55 @@ switch ($data->action){
     }
 
     echo $list;
+    break;
+  case 'show_class_id':
+
+    $id = "$data->idCourse";
+
+    $stmt = $pdo->prepare("SELECT 
+        c.name,
+        c.description,
+        c.fileName
+      FROM class c
+      WHERE c.id = '$id'
+      ");
+    $stmt->execute() or die ("Error executing" . $stmt->error);
+    $results = $stmt->fetch();
+
+    print_r(json_encode($results));
+    break;
+  case 'show_course_name':
+
+    $id = "$data->idCourse";
+
+    $stmt = $pdo->prepare("SELECT 
+        c.name
+      FROM course c
+      WHERE c.id = $id
+      ");
+    $stmt->execute() or die ("Error executing" . $stmt->error);
+    $results = $stmt->fetch();
+
+    print_r(json_encode($results));
+    break;
+  case 'delete_class':
+
+    $arrayData = [
+      'id' => "$data->id"
+    ];
+
+    $stmt = $pdo->prepare("UPDATE class SET deletedBy = '{$_SESSION['userAuth']['id']}', deletedDate = NOW() WHERE id = :id");
+    $execute = $stmt->execute($arrayData);
+
+    if ($execute) {
+      $response->return = 1;
+      $response->message = "Registro Deletado com sucesso!";
+    } else {
+      $response->return = 0;
+      $response->message = "Erro ao deletar o registro!";
+    }
+
+    echo json_encode($response);
     break;
 }
 ?>
